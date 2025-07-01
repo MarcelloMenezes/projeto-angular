@@ -40,8 +40,22 @@ export class Table {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result == 'save') {
-        this.atualizarTabela()
+        this.atualizarTabela();
       }
     });
+  }
+
+  deletar(id: number) {
+    if(window.confirm("Deseja realmente apagar registro?")) {
+      this.service.deletarConteudo(id).subscribe({
+        next: (res) => {
+          alert(res.message);
+          this.atualizarTabela()
+        },
+        error: err => {
+          console.error('Erro ao deletar o usuário:', err);
+        }
+      });
+    }
   }
 }

@@ -22,4 +22,8 @@ export class HomeService {
   atualizarConteudo(id: number, dados: any) {
     return this.http.put(`${this.apiUrl}/${id}`, dados);
   }
+
+  deletarConteudo(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
