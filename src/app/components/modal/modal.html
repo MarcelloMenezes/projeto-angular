@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Adicionar conteúdo</h2>
+<h2 mat-dialog-title>{{ title }} conteúdo</h2>
 <mat-dialog-content>
   <form [formGroup]="form">
     <div class="card-form">
@@ -14,11 +14,7 @@
       </mat-form-field>
       <mat-form-field class="campo-form-field">
         <mat-label>Nome professor (a)</mat-label>
-        <input
-          type="text"
-          matInput
-          formControlName="nome"
-        />
+        <input type="text" matInput formControlName="nome" />
       </mat-form-field>
       <mat-form-field>
         <mat-label>Eixo</mat-label>
@@ -46,5 +42,5 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button matButton mat-dialog-close>Cancelar</button>
-  <button matButton cdkFocusInitial (click)="salvar()">Salvar</button>
+  <button matButton cdkFocusInitial (click)="salvar()">{{ title }}</button>
 </mat-dialog-actions>

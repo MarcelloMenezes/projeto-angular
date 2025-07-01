@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  importProvidersFrom,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -14,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
+  MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -49,11 +44,11 @@ import { HomeService } from '../../pages/home/home-service.service';
 })
 export class Modal implements OnInit {
   public form: any | FormGroup;
+  data = inject(MAT_DIALOG_DATA);
   readonly dialogRef = inject(MatDialogRef<Modal>);
+  title: string = 'Adicionar';
 
-  constructor(private service: HomeService) {}
-
-  ngOnInit(): void {
+  constructor(private service: HomeService) {
     this.form = new FormGroup({
       nome: new FormControl('', [Validators.required]),
       data: new FormControl('', [Validators.required]),
@@ -65,17 +60,43 @@ export class Modal implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+    if (this.data) {
+      this.title = 'Editar';
+      this.form.setValue({
+        nome: this.data.nome_professor,
+        objetivo: this.data.objetivo,
+        data: this.data.data_aula,
+        eixo: this.data.eixo,
+      });
+    }
+  }
+
   salvar() {
     if (this.form.valid) {
-      this.service.enviarDados(this.form.value).subscribe({
-        next: (res) => {
-          alert(res.message);
-          this.dialogRef.close('save');
-        },
-        error: (erro) => {
-          alert('Erro ao enviar' + erro);
-        },
-      });
+      if (this.data) {
+        this.service
+          .atualizarConteudo(this.data.id, this.form.value)
+          .subscribe({
+            next: (res: any) => {
+              alert(res.message);
+              this.dialogRef.close('save');
+            },
+            error: (erro) => {
+              alert('Erro ao enviar' + erro);
+            },
+          });
+      } else {
+        this.service.enviarDados(this.form.value).subscribe({
+          next: (res) => {
+            alert(res.message);
+            this.dialogRef.close('save');
+          },
+          error: (erro) => {
+            alert('Erro ao enviar' + erro);
+          },
+        });
+      }
     }
   }
 }
