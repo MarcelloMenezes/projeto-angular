@@ -16,4 +16,8 @@ export class HomeService {
   getConteudos(): Observable<Conteudo[]> {
     return this.http.get<Conteudo[]>(this.apiUrl);
   }
+
+  enviarDados(dados: Conteudo): Observable<any> {
+    return this.http.post(this.apiUrl, dados);
+  }
 }

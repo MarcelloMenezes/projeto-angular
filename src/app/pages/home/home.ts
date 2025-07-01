@@ -21,14 +21,22 @@ export class Home implements OnInit {
   constructor(private service: HomeService) {}
 
   ngOnInit(): void {
+    this.atualizarTabela()
+  }
+
+  atualizarTabela() {
     this.service.getConteudos().subscribe((data) => {
-      this.dataSource.data = data;;
+      this.dataSource.data = data;
     });
   }
 
   adicionar() {
-    let dialogRef = this.dialog.open(Modal, {
-      data: { name: 'Augusto' },
+    let dialogRef = this.dialog.open(Modal);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result == 'save') {
+        this.atualizarTabela()
+      };
     });
   }
 }

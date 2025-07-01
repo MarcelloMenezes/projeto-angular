@@ -12,6 +12,14 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+      <mat-form-field class="campo-form-field">
+        <mat-label>Nome professor (a)</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="nome"
+        />
+      </mat-form-field>
       <mat-form-field>
         <mat-label>Eixo</mat-label>
         <select matNativeControl formControlName="eixo">
@@ -25,7 +33,12 @@
       <div>
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Objetivo</mat-label>
-          <textarea type="text" matInput placeholder="Digite aqui o objetivo da aula" formControlName="objetivo"></textarea>
+          <textarea
+            type="text"
+            matInput
+            placeholder="Digite aqui o objetivo da aula"
+            formControlName="objetivo"
+          ></textarea>
         </mat-form-field>
       </div>
     </div>
