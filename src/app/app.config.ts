@@ -12,6 +12,7 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { MatNativeDateModule } from '@angular/material/core';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,5 +21,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     importProvidersFrom(MatNativeDateModule), 
+    provideHttpClient(withFetch())
   ],
 };
